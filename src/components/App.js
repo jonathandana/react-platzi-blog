@@ -1,5 +1,6 @@
 
 import React from 'react';
+import axios from "axios";
 
 
 class App extends React.Component{
@@ -8,37 +9,31 @@ class App extends React.Component{
     super();
 
     this.state = {
-      usuarios: [
-        {
-          nombre: 'Rodolfo',
-          correo: 'rodolfo@platzi.com',
-          enlace: 'rodolfo.com'
-        },
-        {
-          nombre: 'Rodolfito',
-          correo: 'rodolfo@platzi.com',
-          enlace: ''
-        },
-        {
-          nombre: 'Platzi',
-          correo: 'info@platzi.com',
-          enlace: 'platzi.com'
-        }
-      ]
+      usuarios: []
     }
 
   }
 
-  ponerFilas = () => (
-      this.state.usuarios.map((usuario)=>(
-        <tr>
-          <td>{usuario.nombre}</td>
-          <td>{usuario.correo}</td>
-          <td>{usuario.enlace}</td>
-        </tr>
-      ))
-  );
+  async componentDidMount() {
+    const respuesta = await axios.get('https://jsonplaceholder.typicode.com/users');
+    this.setState({
+      usuarios: respuesta.data
+    });
+  }
 
+  ponerFilas = () => this.state.usuarios.map((usuario) => (
+      <tr key={ usuario.id }>
+        <td>
+          { usuario.name }
+        </td>
+        <td>
+          { usuario.email }
+        </td>
+        <td>
+          { usuario.website }
+        </td>
+      </tr>
+  ));
   render() {
     return (
         <div className="margen">
