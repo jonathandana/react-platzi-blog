@@ -2,6 +2,9 @@ import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Menu from './Menu';
 import Usuarios from './Usuarios';
+import { createStore } from "redux";
+import { Provider } from 'react-redux';
+
 
 const Prueba = () => <div>hola</div>
 
